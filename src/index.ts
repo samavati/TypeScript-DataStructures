@@ -2,9 +2,10 @@ import { DoublyLinkedList } from './DoublyLinkList';
 
 const list = new DoublyLinkedList();
 
-list.append(5);
-list.append(6);
-list.append(7);
+list.append('Harry');
+list.append("Ron");
+list.append('hermion')
+list.insert(0, 'ali');
 
 console.log(list.toArray());
 console.log(list.length);
