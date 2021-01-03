@@ -64,8 +64,10 @@ export class MaxBinaryHeap {
     extractMax() {
         const max = this._values[0];
         const end = this._values.pop();
-        this._values[0] = end;
-        this.bubbleDown();
+        if (this._values.length > 0) {
+            this._values[0] = end;
+            this.bubbleDown();
+        }
         return max;
     }
 }
