@@ -1,3 +1,4 @@
+import { Queue } from "../../Queue";
 import { BinaryTreeNode } from "./BinaryTreeNode";
 
 export class BinarySearchTree<U> {
@@ -60,6 +61,26 @@ export class BinarySearchTree<U> {
             }
         }
         return -1;
+    }
+
+    /**
+     * Breadth-first search
+     */
+    BFS() {
+        let node = this._root;
+        const queue = new Queue();
+        const visited = [];
+
+        queue.enqueue(node);
+
+        while (queue.size) {
+            node = queue.dequeue();
+            visited.push(node?.value);
+            if (node?.left) { queue.enqueue(node.left) }
+            if (node?.right) { queue.enqueue(node.right) }
+        }
+
+        return visited;
     }
 
 }

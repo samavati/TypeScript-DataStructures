@@ -9,6 +9,10 @@ export class Queue {
     private _size = 0;
     constructor() { }
 
+    get size() {
+        return this._size;
+    }
+
     enqueue(value: any) {
         // Add to the end
         const newNode = new Node(value);
