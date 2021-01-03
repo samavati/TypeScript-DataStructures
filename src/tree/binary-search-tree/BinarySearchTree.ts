@@ -83,4 +83,19 @@ export class BinarySearchTree<U> {
         return visited;
     }
 
+    DFSPreOrder() {
+        const visited: U[] = [];
+        let current = this._root;
+
+        function visit(current: null | BinaryTreeNode<U>) {
+            if (current) {
+                visited.push(current.value);
+                if (current.left) { visit(current.left) }
+                if (current.right) { visit(current.right) }
+            }
+        }
+        visit(current);
+        return visited;
+    }
+
 }
