@@ -3,8 +3,16 @@ class Node {
 }
 export class PriorityQueue {
     private _values: Node[] = [];
-    constructor() { }
+    private _size = 0;
+    constructor(private _order: 'MAX' | 'MIN') { }
 
+    get size() {
+        return this._size;
+    }
+
+    private order() {
+        return this._order === 'MAX' ? 1 : -1;
+    }
     private bubbleUp() {
         let idx = this._values.length - 1;
         const element = this._values[idx];
@@ -12,7 +20,7 @@ export class PriorityQueue {
         while (idx > 0) {
             let parentIdx = Math.floor((idx - 1) / 2);
             let parent = this._values[parentIdx];
-            if (element.priority > parent.priority) {
+            if (element.priority * this.order() > parent.priority * this.order()) {
                 this._values[parentIdx] = element;
                 this._values[idx] = parent;
 
@@ -26,6 +34,7 @@ export class PriorityQueue {
     enqueue(value: any, priority: number) {
         const newNode = new Node(value, priority);
         this._values.push(newNode);
+        this._size++;
         this.bubbleUp();
     }
 
@@ -43,7 +52,7 @@ export class PriorityQueue {
 
             if (leftChildIdx < length) {
                 leftChild = this._values[leftChildIdx];
-                if (leftChild > element) {
+                if (leftChild.priority * this.order() > element.priority * this.order()) {
                     swap = leftChildIdx;
                 }
             }
@@ -51,8 +60,8 @@ export class PriorityQueue {
             if (rightChildIdx < length) {
                 rightChild = this._values[rightChildIdx];
                 if (
-                    (swap !== null && leftChild && rightChild.priority > leftChild.priority) ||
-                    (swap === null && rightChild.priority > element.priority)
+                    (swap !== null && leftChild && rightChild.priority * this.order() > leftChild.priority * this.order()) ||
+                    (swap === null && rightChild.priority * this.order() > element.priority * this.order())
                 ) {
                     swap = rightChildIdx;
                 }
@@ -72,6 +81,7 @@ export class PriorityQueue {
             this._values[0] = end;
             this.bubbleDown();
         }
+        this._size--;
         return max;
     }
 }
