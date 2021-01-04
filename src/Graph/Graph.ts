@@ -1,7 +1,8 @@
+import { Queue } from "../Queue";
+
 export class Graph {
 
     private _adjacencyList: { [key: string]: string[] } = {};
-    constrstringctor() { }
 
     get list() {
         return this._adjacencyList;
@@ -34,5 +35,49 @@ export class Graph {
         this._adjacencyList[vertex2] = this._adjacencyList[vertex2].filter(
             v => v !== vertex1
         )
+    }
+
+    /**
+     * depth first recursive
+     */
+    DFSr(start: string) {
+        const result: string[] = [];
+        const visited: { [key: string]: boolean } = {};
+
+        const dfs = (vertex: string) => {
+            if (!vertex) { return null }
+            visited[vertex] = true;
+            result.push(vertex);
+            this._adjacencyList[vertex].forEach(neighbour => {
+                if (!visited[neighbour]) {
+                    return dfs(neighbour);
+                }
+            })
+        }
+        dfs(start);
+
+        return result;
+    }
+
+    BFS(start: string) {
+        const queue = new Queue();
+        const result: any[] = [];
+        const visited: { [key: string]: boolean } = {};
+        let currentVertex;
+
+        queue.enqueue(start);
+        visited[start] = true;
+        while (queue.size) {
+            currentVertex = queue.dequeue();
+            result.push(currentVertex);
+            this._adjacencyList[currentVertex].forEach(neighbour => {
+                if (!visited[neighbour]) {
+                    visited[neighbour] = true;
+                    queue.enqueue(neighbour);
+                }
+            });
+        }
+
+        return result;
     }
 }
