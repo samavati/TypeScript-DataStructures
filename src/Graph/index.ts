@@ -1,3 +1,3 @@
 import { Graph } from './Graph';
-
-export { Graph };
+import { WeightedGraph } from './WeightedGraph';
+export { Graph, WeightedGraph };
