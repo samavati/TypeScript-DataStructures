@@ -3,11 +3,10 @@ class Node {
 }
 export class PriorityQueue {
     private _values: Node[] = [];
-    private _size = 0;
     constructor(private _order: 'MAX' | 'MIN') { }
 
     get size() {
-        return this._size;
+        return this._values.length;
     }
 
     private order() {
@@ -34,7 +33,6 @@ export class PriorityQueue {
     enqueue(value: any, priority: number) {
         const newNode = new Node(value, priority);
         this._values.push(newNode);
-        this._size++;
         this.bubbleUp();
     }
 
@@ -81,7 +79,6 @@ export class PriorityQueue {
             this._values[0] = end;
             this.bubbleDown();
         }
-        this._size--;
         return max;
     }
 }

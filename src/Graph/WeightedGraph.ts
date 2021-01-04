@@ -87,7 +87,8 @@ export class WeightedGraph {
         const nodes = new PriorityQueue('MIN');
         const distances: { [key: string]: number } = {};
         const previous: { [key: string]: null | string } = {};
-        let smallest: string;
+        let path: string[] = [] //to return at end
+        let smallest: string = '';
 
         // INITIAL STATE
         for (const vertex in this._adjacencyList) {
@@ -110,7 +111,11 @@ export class WeightedGraph {
             if (smallest === finish) {
                 // WE ARE DONE
                 // WE NEED TO BUILD PATH
-                console.log(distances, previous)
+                while (previous[smallest]) {
+                    path.push(smallest);
+                    smallest = previous[smallest] as string;
+                }
+                break;
             }
 
             // FIND NEIGHTBOUR IN NODE
@@ -128,6 +133,7 @@ export class WeightedGraph {
                 });
             }
         }
+        return path.concat(smallest).reverse();
 
     }
 }
