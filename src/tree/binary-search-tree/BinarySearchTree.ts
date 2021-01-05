@@ -7,11 +7,11 @@ export class BinarySearchTree<U> {
     private _key: keyof U | null;
     private _comparator: (a: U, b: U) => number
 
-    constructor(_comparator: (a: U, b: U) => number);
-    constructor(_comparator: (a: U, b: U) => number, _key: keyof U);
-    constructor(_comparator: (a: U, b: U) => number, _key?: keyof U) {
-        this._comparator = _comparator;
-        _key ? this._key = _key : this._key = null;
+    constructor(comparator: (a: U, b: U) => number);
+    constructor(comparator: (a: U, b: U) => number, key: keyof U);
+    constructor(comparator: (a: U, b: U) => number, key?: keyof U) {
+        this._comparator = comparator;
+        key ? this._key = key : this._key = null;
     }
 
     get root() {
