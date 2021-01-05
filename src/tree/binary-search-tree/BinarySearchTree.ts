@@ -4,8 +4,15 @@ import { BinaryTreeNode } from "./BinaryTreeNode";
 export class BinarySearchTree<U> {
     private _root: null | BinaryTreeNode<U> = null;
     private _size: number = 0;
+    private _key: keyof U | null;
+    private _comparator: (a: U, b: U) => number
 
-    constructor(private _comparator: (a: U, b: U) => number, private key?: keyof U) { }
+    constructor(_comparator: (a: U, b: U) => number);
+    constructor(_comparator: (a: U, b: U) => number, _key: keyof U);
+    constructor(_comparator: (a: U, b: U) => number, _key?: keyof U) {
+        this._comparator = _comparator;
+        _key ? this._key = _key : this._key = null;
+    }
 
     get root() {
         return this._root;
